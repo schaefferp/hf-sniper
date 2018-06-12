@@ -58,7 +58,7 @@ data = [
     ('bSortable_3', 'true'),
     ('bSortable_4', 'false'),
     ('bSortable_5', 'false'),
-    ('id', 'tab-mb_billets'),
+    ('id', 'tab-mb_billets')
 ]
 
 raw = requests.post('https://hellfest.zepass.com/tabdyn/index', headers=headers, data=data, cookies=cookies).text
@@ -74,7 +74,7 @@ while True:
             price = int(soup.find('span', attrs={'class': 'montant-numeric'}).string)
             price_list.append(price)
         if min(price_list) <= 100:
-            buy_list = [str(price) + '€' for price in sorted(price_list)[:3]]
+            buy_list = [str(price) + ' €' for price in sorted(price_list)[:3]]
             log('YAY ! \\o/ Cheapest tickets : {0}'.format(', '.join(buy_list)))
         else:
             log('No interesting prices. :/ (min: {0} €)'.format(min(price_list)))
