@@ -67,7 +67,7 @@ js = json.loads(raw)
 
 while True:
     now = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-    print('{0} | Checking... '.format(now))
+    print('{0} | Checking...'.format(now)),
     if js['aaData']:
         price_list = []
         for item in js['aaData']:
