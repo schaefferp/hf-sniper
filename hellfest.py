@@ -5,12 +5,15 @@
 
 import random
 import re
+import subprocess
 import sys
 import time
 
 import bs4
 import json
 import requests
+
+RECIPIENT_EMAIL = ''
 
 log = sys.stdout.write
 
@@ -77,6 +80,7 @@ while True:
         if min(price_list) <= 100:
             buy_list = [str(price) + ' €' for price in sorted(price_list)[:3]]
             log('YAY ! \\o/ Cheapest tickets : {0}'.format(', '.join(buy_list)))
+            subprocess.call('echo -e "Subject:HF ticket : {0}\n\nTop 3 prices : {1}\n" | sendmail {2}'.format(buy_list[0], ', '.join(buy_list), RECIPIENT_EMAIL), shell=True)
         else:
             log('No interesting prices. :/ (min: {0} €)'.format(min(price_list)))
     else:
