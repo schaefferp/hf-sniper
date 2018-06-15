@@ -6,7 +6,6 @@
 import random
 import re
 import subprocess
-import sys
 import time
 
 import bs4
@@ -14,8 +13,6 @@ import json
 import requests
 
 RECIPIENT_EMAIL = ''
-
-log = sys.stdout.write
 
 hf = requests.get('https://hellfest.zepass.com/achat-billet/r/462365')
 
@@ -70,7 +67,7 @@ js = json.loads(raw)
 
 while True:
     now = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-    log('{0} | Checking... '.format(now))
+    print('{0} | Checking... '.format(now))
     if js['aaData']:
         price_list = []
         for item in js['aaData']:
@@ -79,11 +76,10 @@ while True:
             price_list.append(price)
         if min(price_list) <= 100:
             buy_list = [str(price) + ' €' for price in sorted(price_list)[:3]]
-            log('YAY ! \\o/ Cheapest tickets : {0}'.format(', '.join(buy_list)))
+            print('YAY ! \\o/ Cheapest tickets : {0}'.format(', '.join(buy_list)))
             subprocess.call('echo -e "Subject:HF ticket : {0}\n\nTop 3 prices : {1}\n" | sendmail {2}'.format(buy_list[0], ', '.join(buy_list), RECIPIENT_EMAIL), shell=True)
         else:
-            log('No interesting prices. :/ (min: {0} €)'.format(min(price_list)))
+            print('No interesting prices. :/ (min: {0} €)'.format(min(price_list)))
     else:
-        log('Nope, no tickets. =(')
-    log('\n')
+        print('Nope, no tickets. =(')
     time.sleep(random.randrange(300, 600))
