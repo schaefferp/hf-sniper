@@ -3,6 +3,7 @@
 
 """ Quick'n'dirty sniper"""
 
+import random
 import re
 import sys
 import time
@@ -81,4 +82,4 @@ while True:
     else:
         log('Nope, no tickets. =(')
     log('\n')
-    time.sleep(60)
+    time.sleep(random.randrange(300, 600))
