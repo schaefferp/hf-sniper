@@ -62,12 +62,12 @@ data = [
     ('id', 'tab-mb_billets')
 ]
 
-raw = requests.post('https://hellfest.zepass.com/tabdyn/index', headers=headers, data=data, cookies=cookies).text
-js = json.loads(raw)
 
 while True:
     now = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     print('{0} | Checking...'.format(now)),
+    raw = requests.post('https://hellfest.zepass.com/tabdyn/index', headers=headers, data=data, cookies=cookies).text
+    js = json.loads(raw)
     if js['aaData']:
         price_list = []
         for item in js['aaData']:
